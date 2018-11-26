@@ -1,4 +1,4 @@
-import { getPreviousNValues } from '../index';
+import { getPreviousNValues, getLastValue } from '../index';
 
 function createStackFunc(func, humanTitle) {
   return Object.freeze({ func, humanTitle });
@@ -24,8 +24,24 @@ function subtractPreviousNFrames(num) {
   );
 }
 
-export const addPreviousTwoFrames = addPreviousNFrames(2);
-export const subtractPreviousTwoFrames = subtractPreviousNFrames(2);
+function multiplyPreviousNFrames(num) {
+  return createStackFunc(
+    stk =>
+      getPreviousNValues(stk, num)
+        .reverse()
+        .reduce((a, b) => a * b),
+    `multiply previous ${num} frames`
+  );
+}
+
+const addPreviousTwoFrames = addPreviousNFrames(2);
+const subtractPreviousTwoFrames = subtractPreviousNFrames(2);
+const multiplyPreviousTwoFrames = multiplyPreviousNFrames(2);
+
+const fromCharCode = createStackFunc(
+  stk => String.fromCharCode(getLastValue(stk)),
+  `last value to character`
+);
 
 // function createStackFuncGenerator(func, humanTitle, args) {
 //   return Object.freeze({func, humanTitle, args})
@@ -39,3 +55,10 @@ export const subtractPreviousTwoFrames = subtractPreviousNFrames(2);
 //   return createArg('number', humanTitle)
 // }
 //
+
+export const activeFuncs = [
+  addPreviousTwoFrames,
+  subtractPreviousTwoFrames,
+  multiplyPreviousTwoFrames,
+  fromCharCode
+];

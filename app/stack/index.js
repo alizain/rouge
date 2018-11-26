@@ -34,3 +34,7 @@ export function getPreviousNFrames(stk, num) {
 export function getPreviousNValues(stk, num) {
   return getPreviousNFrames(stk, num).map(frame => frame.value);
 }
+
+export function getLastValue(stk) {
+  return stk[0].value;
+}
