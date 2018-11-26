@@ -1,7 +1,12 @@
 import { getPreviousNValues, getLastValue } from '../index';
+import { generateId } from '../utils';
 
 function createStackFunc(func, humanTitle) {
-  return Object.freeze({ func, humanTitle });
+  return Object.freeze({
+    id: generateId(),
+    func,
+    humanTitle
+  });
 }
 
 function addPreviousNFrames(num) {

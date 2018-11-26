@@ -28,13 +28,13 @@ export default class Home extends Component {
 
   commitValueToStack(value) {
     this.setState(state => ({
-      stack: stackOps.commitValue(state, value)
+      stack: stackOps.commitValue(state.stack, value)
     }));
   }
 
   commitFuncDescriptorToStack(funcDescriptor) {
     this.setState(state => ({
-      stack: stackOps.commitFuncDescriptor(state, funcDescriptor)
+      stack: stackOps.commitFuncDescriptor(state.stack, funcDescriptor)
     }));
   }
 
@@ -50,7 +50,7 @@ export default class Home extends Component {
           </button>
         </div>
         {activeFuncs.map(funcDescriptor => (
-          <div>
+          <div key={funcDescriptor.id}>
             <button
               type="button"
               onClick={() => this.commitFuncDescriptorToStack(funcDescriptor)}
